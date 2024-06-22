@@ -15,7 +15,7 @@ app.use ("/api/user",userRoutes);
 app.use ("/api/auth",authRoutes);
 app.listen(3000,()=>{
     // console.log(process.env.MONGO);
-    console.log("server listening port 3000");
+    console.log("server listening port  + default ");
     
 });
 app.use((err,req,res,next)=>{

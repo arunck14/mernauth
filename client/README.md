@@ -1,8 +1,31 @@
-# React + Vite
+1.add bcryptjs to handle encryption , if we use just bcrypt we need to handle async await.
+const hashedPassword = await bcryptjs.hashSync(password,10);
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+2.FOR CORS make changes in vite.config
 
-Currently, two official plugins are available:
+export default defineConfig({
+plugins: [react()],
+//add this proxy to handle two different port for frontend and backend
+server : {
+proxy:{
+'/api' : {
+target : 'http://localhost:3000',
+// changeOrigin :true,
+secure : false,
+}
+}
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+}
+})
+
+3. add this to handle 404 error if we don't use axios and use fetch
+   const res = await fetch("/api/auth/signup", {
+   method: "POST",
+   headers: {
+   "Content-Type": "application/json",
+   },
+   body: JSON.stringify(formData),
+   });
+
+4 for axios try and catch works but for fetch it doens't work prper
+so we can do something like data.error check
